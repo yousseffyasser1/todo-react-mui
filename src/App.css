@@ -36,3 +36,32 @@
     transform: rotate(360deg);
   }
 }
+
+.iconButton {
+  transition: all 0.3s ease !important;
+}
+
+.iconButton:hover {
+  background-color: #c5c5c5 !important;
+  box-shadow: 0 7px 7px rgba(0, 0, 0, 0.4);
+}
+
+.todoCard {
+  transition: all 0.3s ease !important;
+  /* padding-top: 10px;
+  padding-bottom: 10px; */
+}
+.todoCard:hover {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  box-shadow: 0 7px 7px rgba(0, 0, 0, 0.5);
+}
+
+/* custom fonts  */
+@font-face {
+  font-family: ScienceGothic;
+  src: url("/public/Fonts/ScienceGothic_Condensed-Regular.ttf")
+    format("truetype");
+  /* font-weight: 900; */
+}
+/* ======== custom fonts  ======*/
