@@ -10,7 +10,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useContext, useState } from "react";
 import { useEffect } from "react";
-import { TodosContext } from "../contexts/todosContexts";
+// import { TodosContext } from "../contexts/todosContexts";
 import AddIcon from "@mui/icons-material/Add";
 
 // components
@@ -41,7 +41,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 // import FormatAlignJustifyIcon from "@mui/icons-material/FormatAlignJustify";
 
 export default function ToDoList() {
-  const { todos, setTodos } = useContext(TodosContext);
+  const { todos, setTodos } = useContext([]);
   const [todoInput, setTodoInput] = useState({
     title: "",
     details: "",
@@ -73,13 +73,12 @@ export default function ToDoList() {
     return <ToDo key={t.id} todo={t} />;
   });
 
- // التحميل في ال Providor 
+  // التحميل في ال Providor
   useEffect(() => {
-  const storageTodos = JSON.parse(localStorage.getItem("todos"));
-  setTodos(storageTodos);
-}, [setTodos]);
-
-
+    console.log("calling useEffect");
+    const storageTodos = JSON.parse(localStorage.getItem("todos"));
+    setTodos(storageTodos || []);
+  }, [setTodos]);
 
   function changeDisplayedType(e) {
     setDisplayedTodosType(e.target.value);
