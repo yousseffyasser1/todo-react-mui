@@ -200,15 +200,16 @@ export default function ToDo({ todo, handleCheck }) {
       {/* ====== UpDate Dialog  ====== */}
       <Card
         sx={{
-          // Card styles based on completion status مكمن تغير الالوان حسب الحالة
           minWidth: 275,
-          backgroundColor: todo.isCompleted ? "#d3efcfff" : "#5065ccff",
-          color: todo.isCompleted ? "#000" : "#FFF",
-          border: todo.isCompleted
-            ? "3px solid #8bc34a"
-            : "3px solid transparent",
+          backgroundColor: todo.isCompleted ? "#ECFDF5" : "#EEF2FF",
+          color: "#1E293B",
+          border: todo.isCompleted ? "2px solid #22C55E" : "2px solid #CBD5E1",
+          boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+          "&:hover": {
+            transform: "scale(1.01)",
+            transition: "0.2s ease-in-out",
+          },
         }}
-        className="todoCard"
       >
         <CardContent>
           <Grid container spacing={2}>
@@ -248,9 +249,9 @@ export default function ToDo({ todo, handleCheck }) {
                 className="iconButton"
                 aria-label="delete"
                 sx={{
-                  color: todo.isCompleted ? "#FFF" : "#8bc34a",
-                  backgroundColor: todo.isCompleted ? "#8bc34a" : "#FFF",
-                  border: "solid #8bc34a 3px",
+                  color: todo.isCompleted ? "#FFF" : "#22C55E",
+                  backgroundColor: todo.isCompleted ? "#22C55E" : "#FFF",
+                  border: "solid #22C55E 3px",
                 }}
               >
                 <CheckIcon />
