@@ -9,7 +9,7 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useContext, useState } from "react";
-// import { useEffect } from "react";
+import { useEffect } from "react";
 import { TodosContext } from "../contexts/todosContexts";
 import AddIcon from "@mui/icons-material/Add";
 
@@ -74,10 +74,11 @@ export default function ToDoList() {
   });
 
  // التحميل في ال Providor 
-//   useEffect(() => {
-//   const storageTodos = JSON.parse(localStorage.getItem("todos"));
-//   setTodos(storageTodos || []);
-// }, [setTodos]);
+  useEffect(() => {
+  const storageTodos = JSON.parse(localStorage.getItem("todos"));
+  setTodos(storageTodos);
+}, [setTodos]);
+
 
 
   function changeDisplayedType(e) {

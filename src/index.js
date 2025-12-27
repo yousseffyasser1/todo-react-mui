@@ -3,14 +3,14 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import TodosProvider from "./contexts/TodosProvider";
+// import TodosProvider from "./contexts/TodosProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <TodosProvider>
+    {/* <TodosProvider> */}
       <App />
-    </TodosProvider>
+    {/* </TodosProvider> */}
   </React.StrictMode>
 );
 
