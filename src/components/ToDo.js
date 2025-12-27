@@ -19,6 +19,11 @@ import TextField from "@mui/material/TextField";
 // other imports commented out
 // import CardActions from "@mui/material/CardActions";
 // import Button from "@mui/material/Button";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
 
 export default function ToDo({ todo, handleCheck }) {
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
@@ -26,7 +31,10 @@ export default function ToDo({ todo, handleCheck }) {
   const [updatedTodo, setUpdatedTodo] = useState({
     title: todo.title,
     details: todo.details,
+    date: todo.date ? dayjs(todo.date) : null,
+    duration: todo.duration ? dayjs(todo.duration, "HH:mm") : null,
   });
+
   const { todos, setTodos } = useContext(TodosContext);
 
   //  Event Handlers
@@ -65,11 +73,19 @@ export default function ToDo({ todo, handleCheck }) {
   function handleUpdateConfirm() {
     const updatedTodos = todos.map((t) => {
       if (t.id === todo.id) {
-        return { ...t, title: updatedTodo.title, details: updatedTodo.details };
-      } else {
-        return t;
+        return {
+          ...t,
+          title: updatedTodo.title,
+          details: updatedTodo.details,
+          date: updatedTodo.date ? updatedTodo.date.format("YYYY-MM-DD") : "",
+          duration: updatedTodo.duration
+            ? updatedTodo.duration.format("HH:mm")
+            : "",
+        };
       }
+      return t;
     });
+
     setTodos(updatedTodos);
     setShowUpdateDialog(false);
     localStorage.setItem("todos", JSON.stringify(updatedTodos));
@@ -142,6 +158,37 @@ export default function ToDo({ todo, handleCheck }) {
               setUpdatedTodo({ ...updatedTodo, details: e.target.value });
             }}
           />
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              label="Task Date"
+              value={updatedTodo.date}
+              onChange={(newValue) => {
+                setUpdatedTodo({ ...updatedTodo, date: newValue });
+              }}
+              slotProps={{
+                textField: {
+                  fullWidth: true,
+                  margin: "dense",
+                  variant: "standard",
+                },
+              }}
+            />
+
+            <TimePicker
+              label="Task Time"
+              value={updatedTodo.duration}
+              onChange={(newValue) => {
+                setUpdatedTodo({ ...updatedTodo, duration: newValue });
+              }}
+              slotProps={{
+                textField: {
+                  fullWidth: true,
+                  margin: "dense",
+                  variant: "standard",
+                },
+              }}
+            />
+          </LocalizationProvider>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleUpdateDialogClose}>Disagree</Button>
@@ -166,11 +213,24 @@ export default function ToDo({ todo, handleCheck }) {
         <CardContent>
           <Grid container spacing={2}>
             <Grid size={{ xs: 6, md: 8 }}>
-              <Typography variant="h5" sx={{ textAlign: "left" , textDecoration: todo.isCompleted ? "line-through" : "none" }}>
+              <Typography
+                variant="h5"
+                sx={{
+                  textAlign: "left",
+                  textDecoration: todo.isCompleted ? "line-through" : "none",
+                }}
+              >
                 {todo.title}
               </Typography>
               <Typography variant="h6" sx={{ textAlign: "left" }}>
                 {todo.details}
+              </Typography>
+              <Typography variant="body2" sx={{ textAlign: "left" }}>
+                📅 {todo.date || "No date"}
+              </Typography>
+
+              <Typography variant="body2" sx={{ textAlign: "left" }}>
+                ⏰ {todo.duration || "No time"}
               </Typography>
             </Grid>
             {/* Action Buttuns */}
